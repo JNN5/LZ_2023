@@ -1,29 +1,29 @@
-from git import Repo
+from boto3 import client
 import json
 
 
-class GitRepo:
-    _repo: Repo
-    _local_dir: str
+class Repo:
+    client: client
+    repo: str
 
-    def __init__(self, remote_url: str, local_dir: str):
-        try:
-            self._repo = Repo(local_dir)
-        except Exception:
-            self._repo = Repo.clone_from(remote_url, local_dir)
-        self._local_dir = local_dir
+    def __init__(self, repo: str):
+        self.client = client("codecommit")
+        self.repo = repo
 
     def get_file(self, file: str) -> dict:
-        with open(f"{self._local_dir}/{file}") as f:
-            return json.load(f)
+        return json.loads(
+            self.client.get_file(repositoryName=self.repo, filePath=file)
+            .get("fileContent")
+            .decode("utf-8")
+        )
 
-    def update_file(self, file: str, content: dict):
-        with open(f"{self._local_dir}/{file}", "w") as f:
-            f.write(json.dumps(content))
-
-        add_file = [file]  # relative path from git root
-        self._repo.index.add(add_file)
-
-    def push_to_remote(self, commit_msg: str):
-        self._repo.index.commit(commit_msg)
-        self._repo.remote(name="origin").push()
+    def update_file(self, file: str, content: dict, commit_msg: str):
+        branch = self.client.get_branch(repositoryName=self.repo, branchName="main")
+        self.client.put_file(
+            repositoryName=self.repo,
+            branchName="main",
+            filePath=file,
+            fileContent=json.dumps(content),
+            parentCommitId=branch["branch"]["commitId"],
+            commitMessage=commit_msg,
+        )

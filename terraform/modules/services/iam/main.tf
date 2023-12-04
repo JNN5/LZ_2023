@@ -1,3 +1,24 @@
+
+resource "aws_iam_role" "lambda_role" {
+  name = var.lambda_role_name
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
+      }
+    ]
+  }
+EOF
+
+}
 resource "aws_iam_role_policy" "lambda_role_policy" {
   name = "lambda_role_policy"
   role = aws_iam_role.lambda_role.id
@@ -29,27 +50,6 @@ data "aws_iam_policy_document" "lambda_policy" {
     ]
     resources = ["*"]
   }
-}
-
-resource "aws_iam_role" "lambda_role" {
-  name = var.lambda_role_name
-
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "Principal": {
-          "Service": "lambda.amazonaws.com"
-        },
-        "Effect": "Allow",
-        "Sid": ""
-      }
-    ]
-  }
-EOF
-
 }
 
 data "aws_iam_policy" "aws_xray_write_only_access" {
@@ -105,94 +105,94 @@ resource "aws_iam_role" "api_gateway_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "appsync_cloudwatch_role_policy" {
-  name = "appsync_cloudwatch_role_policy"
-  role = aws_iam_role.appsync_cloudwatch_role.id
+# resource "aws_iam_role_policy" "appsync_cloudwatch_role_policy" {
+#   name = "appsync_cloudwatch_role_policy"
+#   role = aws_iam_role.appsync_cloudwatch_role.id
 
-  policy = data.aws_iam_policy_document.appsync_cloudwatch_policy.json
-}
+#   policy = data.aws_iam_policy_document.appsync_cloudwatch_policy.json
+# }
 
-data "aws_iam_policy_document" "appsync_cloudwatch_policy" {
-  policy_id = "__policy_ID_appsync_role"
+# data "aws_iam_policy_document" "appsync_cloudwatch_policy" {
+#   policy_id = "__policy_ID_appsync_role"
 
-  statement {
-    sid    = ""
-    effect = "Allow"
-    actions = [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-    resources = ["*"]
-  }
-}
+#   statement {
+#     sid    = ""
+#     effect = "Allow"
+#     actions = [
+#       "logs:CreateLogGroup",
+#       "logs:CreateLogStream",
+#       "logs:PutLogEvents"
+#     ]
+#     resources = ["*"]
+#   }
+# }
 
-resource "aws_iam_role" "appsync_cloudwatch_role" {
-  name = var.appsync_cloudwatch_role_name
+# resource "aws_iam_role" "appsync_cloudwatch_role" {
+#   name = var.appsync_cloudwatch_role_name
 
-  assume_role_policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-        "Effect": "Allow",
-        "Principal": {
-            "Service": "appsync.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-        }
-    ]
-}
-POLICY
-}
+#   assume_role_policy = <<POLICY
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#         "Effect": "Allow",
+#         "Principal": {
+#             "Service": "appsync.amazonaws.com"
+#         },
+#         "Action": "sts:AssumeRole"
+#         }
+#     ]
+# }
+# POLICY
+# }
 
-resource "aws_iam_role" "appsync_service_role" {
-  name = var.appsync_service_role_name
+# resource "aws_iam_role" "appsync_service_role" {
+#   name = var.appsync_service_role_name
 
-  assume_role_policy = data.aws_iam_policy_document.appsync_service_assume_role_policy.json
-}
+#   assume_role_policy = data.aws_iam_policy_document.appsync_service_assume_role_policy.json
+# }
 
-data "aws_iam_policy_document" "appsync_service_assume_role_policy" {
-  statement {
-    sid = "1"
-    actions = [
-      "sts:AssumeRole",
-    ]
-    principals {
-      type        = "Service"
-      identifiers = ["appsync.amazonaws.com"]
-    }
-  }
-}
+# data "aws_iam_policy_document" "appsync_service_assume_role_policy" {
+#   statement {
+#     sid = "1"
+#     actions = [
+#       "sts:AssumeRole",
+#     ]
+#     principals {
+#       type        = "Service"
+#       identifiers = ["appsync.amazonaws.com"]
+#     }
+#   }
+# }
 
-resource "aws_iam_role_policy" "appsync_service_role_policy" {
-  name = "appsync_service_role_policy"
-  role = aws_iam_role.appsync_service_role.id
+# resource "aws_iam_role_policy" "appsync_service_role_policy" {
+#   name = "appsync_service_role_policy"
+#   role = aws_iam_role.appsync_service_role.id
 
-  policy = data.aws_iam_policy_document.appsync_service_role_policy.json
-}
+#   policy = data.aws_iam_policy_document.appsync_service_role_policy.json
+# }
 
-data "aws_iam_policy_document" "appsync_service_role_policy" {
-  policy_id = "__policy_ID_appsync_role"
+# data "aws_iam_policy_document" "appsync_service_role_policy" {
+#   policy_id = "__policy_ID_appsync_role"
 
-  statement {
-    sid    = ""
-    effect = "Allow"
-    actions = [
-      "lambda:InvokeFunction*"
-    ]
-    resources = ["*"]
-  }
+#   statement {
+#     sid    = ""
+#     effect = "Allow"
+#     actions = [
+#       "lambda:InvokeFunction*"
+#     ]
+#     resources = ["*"]
+#   }
 
-  statement {
-    sid    = ""
-    effect = "Allow"
-    actions = [
-      "dynamodb:*"
-    ]
-    resources = ["*"]
-  }
-}
+#   statement {
+#     sid    = ""
+#     effect = "Allow"
+#     actions = [
+#       "dynamodb:*"
+#     ]
+#     resources = ["*"]
+#   }
+# }
 
 ### EVENTBRIDGE ###
 resource "aws_iam_role" "eventbridge_scheduler_role" {

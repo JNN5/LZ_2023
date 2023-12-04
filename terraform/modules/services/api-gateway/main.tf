@@ -239,32 +239,32 @@ resource "aws_api_gateway_usage_plan_key" "usage_plan_key" {
   usage_plan_id = aws_api_gateway_usage_plan.usage_plan.id
 }
 
-resource "null_resource" "api_deployment" {
-  triggers = {
-    uuid = uuid()
-  }
-  provisioner "local-exec" {
-    command = <<EOF
-     aws apigateway create-deployment --rest-api-id ${aws_api_gateway_rest_api.api.id} --stage-name ${aws_api_gateway_deployment.deployment.stage_name}
-   EOF
-  }
-}
+# resource "null_resource" "api_deployment" {
+#   triggers = {
+#     uuid = uuid()
+#   }
+#   provisioner "local-exec" {
+#     command = <<EOF
+#      aws apigateway create-deployment --rest-api-id ${aws_api_gateway_rest_api.api.id} --stage-name ${aws_api_gateway_deployment.deployment.stage_name}
+#    EOF
+#   }
+# }
 
 ##### Cognito Authorizer unhide only if required ########
 
-data "aws_cognito_user_pools" "user_pools" {
-  name  = "${var.user_pool}"
-}
-resource "aws_api_gateway_authorizer" "cognito_auth" {
-  name          = var.api_gw_authorizer_name
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  type          = "COGNITO_USER_POOLS"
-  provider_arns = data.aws_cognito_user_pools.user_pools.arns
+# data "aws_cognito_user_pools" "user_pools" {
+#   name  = "${var.user_pool}"
+# }
+# resource "aws_api_gateway_authorizer" "cognito_auth" {
+#   name          = var.api_gw_authorizer_name
+#   rest_api_id   = aws_api_gateway_rest_api.api.id
+#   type          = "COGNITO_USER_POOLS"
+#   provider_arns = data.aws_cognito_user_pools.user_pools.arns
 
-  depends_on = [
-    data.aws_cognito_user_pools.user_pools
-  ]
-}
+#   depends_on = [
+#     data.aws_cognito_user_pools.user_pools
+#   ]
+# }
 ##########################################################
 
 ##### CUSTOM Authorizer unhide only if required ##########

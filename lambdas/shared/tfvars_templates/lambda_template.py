@@ -6,14 +6,14 @@ class LambdaTemplate:
     lambda_name: str
     lambda_description: str = ""
     lambda_handler: str = "handler.handler"
-    lambda_file_name: str = "../lambdas/shared/tfvars_templates/handler.zip"
+    lambda_file_name: str = "./handler.zip"
     lambda_memory_size: int = 512
     lambda_timeout: int = 30
     lambda_runtime: str = "python3.11"
-    layers: list = field(default_factory=list) 
+    layers: list = field(default_factory=list)
     kms_key: str = "lz-lambda-key"
     in_vpc: bool = False
-    environment_variables: list = field(default_factory=list) 
+    environment_variables: list = field(default_factory=list)
 
     def to_json(self):
         return {

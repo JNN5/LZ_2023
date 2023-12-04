@@ -40,10 +40,10 @@ variable "api_gw_authorizer_name" {
   description = "Name of API gateway authorizer"
 }
 
-variable "user_pool" {
-  type        = string
-  description = "Name of the Cognito user pool to be used for the API Gateway authorizer"
-}
+# variable "user_pool" {
+#   type        = string
+#   description = "Name of the Cognito user pool to be used for the API Gateway authorizer"
+# }
 
 variable "api_cors" {
   description = "Cors of API"

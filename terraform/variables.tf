@@ -6,23 +6,23 @@ variable "region" {
 }
 
 ############### COGNITO ################
-variable "cognito_user_pools" {
-  type = map(any)
-  description = "List of cognito user pools to be created"
-}
+# variable "cognito_user_pools" {
+#   type = map(any)
+#   description = "List of cognito user pools to be created"
+# }
 
-variable "cognito_user_pool_clients" {
-  type = map(any)
-  description = "List of cognito user pool clients"
-}
+# variable "cognito_user_pool_clients" {
+#   type = map(any)
+#   description = "List of cognito user pool clients"
+# }
 
-variable "cognito_user_pool_passkeys" {
-  type = any
-}
+# variable "cognito_user_pool_passkeys" {
+#   type = any
+# }
 
-variable "user_pool_clients_passkeys" {
-  type = map(any)
-}
+# variable "user_pool_clients_passkeys" {
+#   type = map(any)
+# }
 
 ################ DynamoDB ################
 variable "dynamodb_tables" {
@@ -36,20 +36,20 @@ variable "lambda_role_name" {
   description = "lambda role to be created"
 }
 
-variable "appsync_service_role_name" {
-  type        = string
-  description = "Name of role that Appsync should assume when accessing datasources"
-}
+# variable "appsync_service_role_name" {
+#   type        = string
+#   description = "Name of role that Appsync should assume when accessing datasources"
+# }
 
-variable "subscription_table_name" {
-  type        = string
-  description = "Name of webpush subscription table"
-}
+# variable "subscription_table_name" {
+#   type        = string
+#   description = "Name of webpush subscription table"
+# }
 
-variable "appsync_cloudwatch_role_name" {
-  type        = string
-  description = "Name of role that Appsync should assume when writing to Cloudwatch"
-}
+# variable "appsync_cloudwatch_role_name" {
+#   type        = string
+#   description = "Name of role that Appsync should assume when writing to Cloudwatch"
+# }
 
 ################ LAMBDA ################
 variable "lambdas" {
@@ -77,13 +77,13 @@ variable "lambda_security_group_ids" {
 }
 
 ############# AppConfig ##############
-variable "feature_flags" {
-  type = map(object({
-    name    = string
-    enabled = bool,
-    })
-  )
-}
+# variable "feature_flags" {
+#   type = map(object({
+#     name    = string
+#     enabled = bool,
+#     })
+#   )
+# }
 
 
 ############# API-Gateway ###############
@@ -107,10 +107,10 @@ variable "api_gw_authorizer_name" {
   default     = ""
 }
 
-variable "user_pool" {
-  type        = string
-  description = "Name of the Cognito user pool to be used for the API Gateway authorizer"
-}
+# variable "user_pool" {
+#   type        = string
+#   description = "Name of the Cognito user pool to be used for the API Gateway authorizer"
+# }
 
 variable "api_gateway_role_name" {
   type        = string
@@ -142,42 +142,42 @@ variable "stage_name" {
 # }
 
 ############## APPSYNC ####################
-variable "appsync" {
-  type        = any
-  description = "Object containing necessary vars to create appsync module"
-}
+# variable "appsync" {
+#   type        = any
+#   description = "Object containing necessary vars to create appsync module"
+# }
 
-variable "appsync_datasources" {
-  type        = map(any)
-  description = "List of appsync datasources"
-}
+# variable "appsync_datasources" {
+#   type        = map(any)
+#   description = "List of appsync datasources"
+# }
 
-variable "appsync_functions" {
-  type        = map(any)
-  description = "List of appsync functions"
-}
+# variable "appsync_functions" {
+#   type        = map(any)
+#   description = "List of appsync functions"
+# }
 
-variable "appsync_resolvers" {
-  type        = any
-  description = "List of appsync resolvers"
-}
+# variable "appsync_resolvers" {
+#   type        = any
+#   description = "List of appsync resolvers"
+# }
 
-variable "direct_lambda_request_template" {
-  type        = string
-  description = "Request template for direct lambda"
-}
+# variable "direct_lambda_request_template" {
+#   type        = string
+#   description = "Request template for direct lambda"
+# }
 
-variable "direct_lambda_response_template" {
-  type        = string
-  description = "Response template for direct lambda"
-}
+# variable "direct_lambda_response_template" {
+#   type        = string
+#   description = "Response template for direct lambda"
+# }
 
 ################## S3 ####################
 variable "s3_buckets" {
   type = map(object({
     name    = string,
     acl     = string,
-    kms_key = string,
+    # kms_key = string,
 
     # For S3 event notifications
     should_trigger_lambda = bool
@@ -189,13 +189,13 @@ variable "s3_buckets" {
 }
 
 ################## KMS ####################
-variable "kms_keys" {
-  type = map(any)
-}
+# variable "kms_keys" {
+#   type = map(any)
+# }
 
-variable "kms_role" {
-  type = string
-}
+# variable "kms_role" {
+#   type = string
+# }
 
 ################## EVENTBRIDGE ####################
 variable "eventbridge_schedules" {

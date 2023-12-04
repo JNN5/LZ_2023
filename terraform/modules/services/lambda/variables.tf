@@ -20,17 +20,17 @@ variable "lambda_layers" {
 variable "lambda_permissions" {
   type = list(any)
 }
-variable "kms_keys" {
-  type = map(any)
-}
+# variable "kms_keys" {
+#   type = map(any)
+# }
 
-variable "user_pool_arns" {
-  type = map(any)
-}
+# variable "user_pool_arns" {
+#   type = map(any)
+# }
 
-variable "appsync_url" {
-  type = string
-}
+# variable "appsync_url" {
+#   type = string
+# }
 
 variable "sqs_arns" {
   type = map(any)

@@ -6,7 +6,9 @@ from api_response_handler import BadRequest
 
 
 def parse_event(event: dict, clazz: dataclass):
-    if event.get("body"):
+    if event.get("body-json"):
+        body = event.get("body-json")
+    elif event.get("body"):
         body = _parse_event_body(event)
     else:
         body = event
@@ -17,10 +19,8 @@ def parse_event(event: dict, clazz: dataclass):
             f"{event} does not contain all of these fields {required_fields}"
         )
     elif any(elem not in all_fields for elem in list(body.keys())):
-        raise BadRequest(
-            f"{event} contains fields that are not expected {all_fields}"
-        )
-    try: 
+        raise BadRequest(f"{event} contains fields that are not expected {all_fields}")
+    try:
         return clazz(*[_parse_field_from_event(f, body) for f in fields(clazz)])
     except Exception as e:
         raise BadRequest(f"Unable to parse event: {event}. Error: {e}")

@@ -1,0 +1,35 @@
+{
+  "region": "ap-southeast-1",
+  "dynamodb_tables": [],
+  "lambda_role_name": "LZ_Lambda_Execution_Role",
+  "lambda_subnet_ids": [],
+  "lambda_security_group_ids": [],
+  "lambdas": {},
+  "lambda_layers": {},
+  "lambda_permissions": [],
+  "lambda_event_source_mapping": {},
+  "api_gw_name": "LZ",
+  "api_gw_description": " LZ API Gateway",
+  "api_cors": "'*'",
+  "api_gw_authorizer_name": "lz-cognito-authorizer",
+  "stage_name": "DEV",
+  "api_gateway_role_name": "LZ_API_Role",
+  "api_gw_usage_plan_name": "lz-usage-plan",
+  "api_gw_keys": {
+    "lz-api-key": {
+      "description": "API key for LZ"
+    }
+  },
+  "api_resources": {},
+  "s3_buckets": {},
+  "eventbridge_scheduler_role": "EventbridgeSchedulerRole",
+  "eventbridge_schedules": {},
+  "sns_list": {},
+  "sqs_queues": {},
+  "sqs_deadletter_queues": {},
+  "ssm_list": {},
+  "tags": {
+    "Project": "Landing Zone PoC",
+    "Environment": "DEV"
+  }
+}

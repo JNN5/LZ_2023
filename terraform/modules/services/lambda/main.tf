@@ -24,8 +24,8 @@ resource "aws_lambda_function" "lambda" {
       variables = each.value.kms_key == "" ? environment.value : merge(
         environment.value,
         {
-          KEY_ID      = var.kms_keys[each.value.kms_key]
-          APPSYNC_URL = var.appsync_url
+          # KEY_ID      = var.kms_keys[each.value.kms_key]
+          # APPSYNC_URL = var.appsync_url
         }
       )
     }
@@ -48,15 +48,15 @@ resource "aws_lambda_layer_version" "lambda_layer" {
   compatible_runtimes = each.value.compatible_runtimes
 }
 
-resource "aws_lambda_permission" "lambda_permission" {
-  for_each      = { for lambda_perm in var.lambda_permissions : join("-", [lambda_perm.function_name, lambda_perm.statement_id]) => lambda_perm }
-  statement_id  = each.value.statement_id
-  action        = each.value.action
-  function_name = each.value.function_name
-  principal     = each.value.principal
-  source_arn    = var.user_pool_arns[each.value.source_name]
-  depends_on    = [aws_lambda_function.lambda]
-}
+# resource "aws_lambda_permission" "lambda_permission" {
+#   for_each      = { for lambda_perm in var.lambda_permissions : join("-", [lambda_perm.function_name, lambda_perm.statement_id]) => lambda_perm }
+#   statement_id  = each.value.statement_id
+#   action        = each.value.action
+#   function_name = each.value.function_name
+#   principal     = each.value.principal
+#   source_arn    = var.user_pool_arns[each.value.source_name]
+#   depends_on    = [aws_lambda_function.lambda]
+# }
 
 resource "aws_lambda_event_source_mapping" "trigger" {
   for_each                = var.lambda_event_source_mapping

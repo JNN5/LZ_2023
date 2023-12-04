@@ -25,13 +25,13 @@ resource "aws_dynamodb_table" "table" {
     }
   }
 
-  dynamic "server_side_encryption" {
-    for_each = each.value.kms_key != "" ? [1] : []
-    content {
-      enabled     = true
-      kms_key_arn = var.kms_keys[each.value.kms_key]
-    }
-  }
+  # dynamic "server_side_encryption" {
+  #   for_each = each.value.kms_key != "" ? [1] : []
+  #   content {
+  #     enabled     = true
+  #     kms_key_arn = var.kms_keys[each.value.kms_key]
+  #   }
+  # }
 
   dynamic "ttl" {
     for_each = each.value.ttl_enabled ? [1] : []

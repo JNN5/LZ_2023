@@ -2,7 +2,7 @@ variable "s3_buckets" {
   type = map(object({
     name    = string,
     acl     = string,
-    kms_key = string,
+    # kms_key = string,
 
     # For S3 event notifications
     should_trigger_lambda = bool
@@ -13,9 +13,9 @@ variable "s3_buckets" {
   }))
 }
 
-variable "kms_keys" {
-  type = map(any)
-}
+# variable "kms_keys" {
+#   type = map(any)
+# }
 
 variable "lambda_arns" { }
 

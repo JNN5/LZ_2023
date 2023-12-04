@@ -20,8 +20,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "server_side_encry
   bucket   = each.value.name
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = each.value.kms_key != "" ? var.kms_keys[var.s3_buckets[each.key].kms_key] : ""
-      sse_algorithm     = each.value.kms_key != "" ? "aws:kms" : "AES256"
+      kms_master_key_id = ""
+      sse_algorithm     = "AES256"
     }
   }
 }
