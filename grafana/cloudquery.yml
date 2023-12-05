@@ -22,4 +22,4 @@ spec:
   version: "v7.1.0"
   write_mode: "overwrite-delete-stale"
   spec:
-    connection_string: "postgresql://postgres:#cloudQUERY321@cloudquery.cvjozyaxqxwy.ap-southeast-1.rds.amazonaws.com:5432/postgres?sslmode=disable"
+    connection_string: ""
