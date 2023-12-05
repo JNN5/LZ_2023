@@ -1,0 +1,25 @@
+kind: source
+spec:
+  # Source spec section
+  name: aws
+  path: cloudquery/aws
+  registry: cloudquery
+  version: "v22.19.2"
+  tables: ["*"]
+  destinations: ["postgresql"]
+  backend_options:
+    table_name: "cq_state_aws"
+    connection: "@@plugins.postgresql.connection"
+  spec:
+    regions:
+      - ap-southeast-1
+---
+kind: destination
+spec:
+  name: "postgresql"
+  path: "cloudquery/postgresql"
+  registry: cloudquery
+  version: "v7.1.0"
+  write_mode: "overwrite-delete-stale"
+  spec:
+    connection_string: "postgresql://postgres:#cloudQUERY321@cloudquery.cvjozyaxqxwy.ap-southeast-1.rds.amazonaws.com:5432/postgres?sslmode=disable"

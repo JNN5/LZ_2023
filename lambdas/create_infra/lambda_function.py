@@ -31,7 +31,7 @@ tracer = Tracer()
 @as_api(CORS)
 def lambda_handler(event, context):
     request: ServiceNowDto = parse_event(event, ServiceNowDto)
-    config = REQUEST_CONFIG[request.app_type][request.app_size]
+    config = REQUEST_CONFIG[request.app_type.lower()][request.app_size.upper()]
 
     new_lambdas, new_api_resources, new_ddb_tables = create_new_tf_vars(config)
 

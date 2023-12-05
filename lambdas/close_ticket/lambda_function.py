@@ -82,7 +82,7 @@ def close_ticket(ticket_id):
         user = get_ssm_param("CAG_SNOW_USER", False)
         pw = get_ssm_param("CAG_SNOW_PW", False)
         headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-        data = json.dumps({'state':3})
+        data = json.dumps({'state':5})
         res = requests.put(uri, auth=(user, pw), headers=headers, data=data)
         log.info(res.text)
     except Exception as e:

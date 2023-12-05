@@ -1,0 +1,39 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "ScheduledWorker",
+      "image": "ghcr.io/cloudquery/cloudquery:4.1.2",
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo $CQ_CONFIG| base64 -d  > ./file.yml;/app/cloudquery sync ./file.yml --log-console --log-format json"
+      ],
+      "environment": [
+        {
+          "name": "CQ_CONFIG",
+          "value": "a2luZDogc291cmNlCnNwZWM6CiAgICAgU291cmNlIHNwZWMgc2VjdGlvbgogICAgICAgbmFtZTog\nYXdzCiAgICAgICAgIHBhdGg6IGNsb3VkcXVlcnkvYXdzCiAgICAgICAgICAgcmVnaXN0cnk6IGNs\nb3VkcXVlcnkKICAgICAgICAgICAgIHZlcnNpb246ICJ2MjIuMTkuMiIKICAgICAgICAgICAgICAg\ndGFibGVzOiBbIioiXQogICAgICAgICAgICAgICAgIGRlc3RpbmF0aW9uczogWyJwb3N0Z3Jlc3Fs\nIl0KICAgICAgICAgICAgICAgICAgIGJhY2tlbmRfb3B0aW9uczoKICAgICAgICAgICAgICAgICAg\nICAgICB0YWJsZV9uYW1lOiAiY3Ffc3RhdGVfYXdzIgogICAgICAgICAgICAgICAgICAgICAgICAg\nICBjb25uZWN0aW9uOiAiQEBwbHVnaW5zLnBvc3RncmVzcWwuY29ubmVjdGlvbiIKICAgICAgICAg\nICAgICAgICAgICAgICAgICAgICBzcGVjOgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg\nICByZWdpb25zOgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtIGFwLXNv\ndXRoZWFzdC0xCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0tLQogICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBraW5kOiBkZXN0aW5hdGlvbgogICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzcGVjOgogICAgICAgICAgICAgICAg\nICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWU6ICJwb3N0Z3Jlc3FsIgogICAgICAgICAgICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGF0aDogImNsb3VkcXVlcnkvcG9zdGdyZXNx\nbCIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnaXN0cnk6\nIGNsb3VkcXVlcnkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg\nICB2ZXJzaW9uOiAidjcuMS4wIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg\nICAgICAgICAgICAgd3JpdGVfbW9kZTogIm92ZXJ3cml0ZS1kZWxldGUtc3RhbGUiCiAgICAgICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwZWM6CiAgICAgICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25uZWN0aW9u\nX3N0cmluZzogInBvc3RncmVzcWw6Ly9wb3N0Z3JlczojY2xvdWRRVUVSWTMyMUBjbG91ZHF1ZXJ5\nLmN2am96eWF4cXh3eS5hcC1zb3V0aGVhc3QtMS5yZHMuYW1hem9uYXdzLmNvbTo1NDMyL3Bvc3Rn\ncmVzP3NzbG1vZGU9ZGlzYWJsZSIK"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "cag-lz-cloudquery-ecs",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs-cloudquery"
+        }
+      },
+      "entryPoint": [
+        ""
+      ]
+    }
+  ],
+  "family": "Cloudquery",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "networkMode": "awsvpc",
+  "taskRoleArn": "arn:aws:iam::467519156370:role/cag-lz-cloudquery-ecs",
+  "executionRoleArn": "arn:aws:iam::467519156370:role/cag-lz-cloudquery-ecs"
+}
